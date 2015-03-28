@@ -1,0 +1,49 @@
+testing function sin
+sin of 180.0 = 1.2246467991473532E-16
+sin of -90.0 = -1.0
+sin of -45.0 = -0.7071067811865475
+sin of 0.0 = 0.0
+sin of 45.0 = 0.7071067811865475
+sin of 90.0 = 1.0
+
+testing function cos
+cos of 180.0 = -1.0
+cos of -90.0 = 6.123233995736766E-17
+cos of -45.0 = 0.7071067811865476
+cos of 0.0 = 1.0
+cos of 45.0 = 0.7071067811865476
+cos of 90.0 = 6.123233995736766E-17
+
+testing function tan
+tan of 180.0 = -1.2246467991473532E-16
+tan of -90.0 = -1.633123935319537E16
+tan of -45.0 = -0.9999999999999999
+tan of 0.0 = 0.0
+tan of 45.0 = 0.9999999999999999
+tan of 90.0 = 1.633123935319537E16
+
+testing function acos
+acos of 180.0 = NaN
+acos of -90.0 = NaN
+acos of -45.0 = 2.4741354375614093
+acos of 0.0 = 1.5707963267948966
+acos of 45.0 = 0.6674572160283838
+acos of 90.0 = NaN
+
+testing function asin
+asin of 180.0 = NaN
+asin of -90.0 = NaN
+asin of -45.0 = -0.9033391107665127
+asin of 0.0 = 0.0
+asin of 45.0 = 0.9033391107665127
+asin of 90.0 = NaN
+
+testing function atan
+atan of 180.0 = 1.2626272556789115
+atan of -90.0 = -1.0038848218538872
+atan of -45.0 = -0.6657737500283538
+atan of 0.0 = 0.0
+atan of 45.0 = 0.6657737500283538
+atan of 90.0 = 1.0038848218538872
+
+
