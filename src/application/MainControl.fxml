@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.effect.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+<?import javafx.collections.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainController">
    <children>
       <TabPane layoutX="0.0" layoutY="0.0" prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -32,14 +35,88 @@
                     <MenuItem mnemonicParsing="false" text="About" />
                   </items>
                 </Menu>
-              </menus>
+              </menus> 
             </MenuBar>
-            <ChoiceBox id="freq_ratio" layoutX="42.0" layoutY="76.0" prefWidth="150.0" />
-            <Text layoutX="42.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" text="Frequency Ratio" wrappingWidth="106.13671875" />
-            <Text layoutX="42.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modulation Index" wrappingWidth="186.13671875" />
-            <Slider blockIncrement="0.01" layoutX="42.0" layoutY="160.0" majorTickUnit="10.0" max="10.0" minorTickCount="5" prefHeight="14.0" prefWidth="514.0" showTickMarks="true" value="0.3" />
-            <Slider layoutX="42.0" layoutY="356.0" majorTickUnit="500.0" max="5000.0" minorTickCount="50" prefHeight="27.0" prefWidth="717.0" />
-            <Text layoutX="42.0" layoutY="341.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Carrier Frequency (Note)" wrappingWidth="228.13671875" />
+            <ChoiceBox fx:id="frequencyRatio" layoutX="42.0" layoutY="76.0" prefWidth="150.0" >
+                           <effect>
+                              <Glow />
+                           </effect>
+                           
+                           <items>
+					            <FXCollections fx:factory="observableArrayList">
+					              <String fx:value="5" />
+					              <String fx:value="4" />
+					              <String fx:value="3" />
+					              <String fx:value="2.89" />
+					              <String fx:value="2" />
+					              <String fx:value="1" />
+					              <String fx:value=".77777" />
+					              <String fx:value=".477777" />
+					              <String fx:value=".33333" />
+					            </FXCollections>
+				          </items>
+                           <tooltip>
+                              <Tooltip text="Change FM tone" />
+                           </tooltip>
+                           
+                           </ChoiceBox>
+            <Text fill="#030303" layoutX="42.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" text="Frequency Ratio" wrappingWidth="202.13671875">
+                           <effect>
+                              <DropShadow color="#e10c0c" height="53.62" radius="50.03" spread="0.73" width="148.5" />
+                           </effect>
+                           <font>
+                              <Font size="18.0" />
+                           </font></Text>
+            <Text fill="#0a0080" layoutX="42.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modulation Index" wrappingWidth="186.13671875">
+                           <font>
+                              <Font name="Lucida Console" size="18.0" />
+                           </font>
+                           <effect>
+                              <DropShadow blurType="GAUSSIAN" color="#9517a3" height="38.67" radius="9.1675" spread="0.65" width="0.0" />
+                           </effect></Text>
+            <Slider fx:id="modIndex" blockIncrement="0.01" layoutX="42.0" layoutY="160.0" majorTickUnit="10.0" max="10.0" minorTickCount="5" prefHeight="14.0" prefWidth="514.0" showTickMarks="true" value="0.3">
+                           <tooltip>
+                              <Tooltip text="Change how the FM sound is generated" />
+                           </tooltip></Slider>
+            <Slider fx:id="carrierFreq" layoutX="42.0" layoutY="479.0" majorTickUnit="500.0" max="5000.0" minorTickCount="50" prefHeight="27.0" prefWidth="717.0">
+                           <tooltip>
+                              <Tooltip text="Change the synth frequency" />
+                           </tooltip></Slider>
+            <Text fill="GREEN" layoutX="42.0" layoutY="472.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Carrier Frequency (Note)" wrappingWidth="228.13671875">
+                           <effect>
+                              <DropShadow blurType="GAUSSIAN" color="#6ef592" spread="0.98" />
+                           </effect>
+                           <font>
+                              <Font size="18.0" />
+                           </font></Text>
+                        <Text fill="GREEN" layoutX="604.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Low Frequency Oscillator" wrappingWidth="154.13671875">
+                           <font>
+                              <Font name="Lucida Console" size="18.0" />
+                           </font>
+                        </Text>
+                        <Slider fx:id="lfoRate" layoutX="609.0" layoutY="108.0" minorTickCount="1" orientation="VERTICAL" prefHeight="230.0" prefWidth="24.0" showTickMarks="true" snapToTicks="true" />
+                        <Slider fx:id="lfoDepth" layoutX="693.0" layoutY="108.0" minorTickCount="1" orientation="VERTICAL" prefHeight="230.0" prefWidth="24.0" showTickMarks="true" snapToTicks="true" />
+                        <Text fill="GREEN" layoutX="603.0" layoutY="359.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rate">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                        <Text fill="GREEN" layoutX="689.0" layoutY="360.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Depth" wrappingWidth="55.13671875">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                        <ChoiceBox fx:id="lfoType" layoutX="594.0" layoutY="76.0" prefWidth="150.0" >
+                         <items>
+					            <FXCollections fx:factory="observableArrayList">
+					              <String fx:value="SINE" />
+					              <String fx:value="SAW" />
+					              <String fx:value="NOISE" />
+					              <String fx:value="TRIANGLE" />
+					              <String fx:value="??" />
+					            </FXCollections>
+				          </items>
+				          </ChoiceBox>
          </children>
               
               
