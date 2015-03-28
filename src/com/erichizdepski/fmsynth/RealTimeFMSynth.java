@@ -128,7 +128,8 @@ public class RealTimeFMSynth extends Thread implements Constants
 
     }
     
-    public void setPatch(FMSynthPatch patch)
+
+	public void setPatch(FMSynthPatch patch)
     {
         debug(patch.toString());
         this.patch = patch;

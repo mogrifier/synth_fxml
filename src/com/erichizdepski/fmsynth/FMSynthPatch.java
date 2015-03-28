@@ -22,8 +22,8 @@ public class FMSynthPatch implements Serializable
     private double amplitude = 0.5; // 0 to 1
     private double freqRatio = 0.5; // 5 to .05
     private String name = null;
-    private LFO modlfo = new LFO(LFO.SAW, 4, 4);  
-    private FxWrapper fx = new FxWrapper(FX.CHEB2, 20);
+    private LFO modlfo = new LFO(LFO.SAW, 0, 0);  
+    private FxWrapper fx = new FxWrapper(FX.CHEB2,  0);
     public static FMSynthPatch PATCH = new FMSynthPatch(1, .66);
     
     public FMSynthPatch()
