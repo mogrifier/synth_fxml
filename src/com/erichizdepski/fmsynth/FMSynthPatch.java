@@ -19,7 +19,7 @@ public class FMSynthPatch implements Serializable
     private double modFreq = 220; //ratio to freq
     private double modIndex = .73;  //0 to 1
     private double modIndexMax = 1; //range 0 to 1; 1ow is best for music
-    private double amplitude = 0.5; // 0 to 1
+    private double amplitude = 1; // 0 to 1
     private double freqRatio = 0.5; // 5 to .05
     private String name = null;
     private LFO modlfo = new LFO(LFO.SAW, 0, 0);  

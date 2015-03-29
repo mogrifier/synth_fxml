@@ -129,4 +129,12 @@ public class Gen3 extends AbstractSoundGenerator {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.erichizdepski.generators.SoundGenerator#getDescription()
+	 */
+	@Override
+	public String getDescription() {
+		return "incomplete";
+	}
+
 }

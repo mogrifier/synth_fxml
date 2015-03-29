@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
 
 import com.erichizdepski.fmsynth.utils.AudioUtils;
 import com.erichizdepski.generators.AbstractSoundGenerator;
@@ -24,6 +26,8 @@ import com.erichizdepski.generators.SoundGenerator;
  */
 public class RealTimeFMSynth extends Thread implements Constants
 {
+	private final static Logger LOGGER = Logger.getLogger(RealTimeFMSynth.class.getName()); 
+	
     private boolean DEBUG = true;
     private double carrierFreq;
     private double modFreq;
@@ -43,19 +47,19 @@ public class RealTimeFMSynth extends Thread implements Constants
     protected int assignLFO = LFO_TO_MODINDEX;
     //to get a proper complete cyclic waveform, you must set the buffer to the sample interval inverse
     
-    public static int BUFFER_SIZE = 65535;//affects responsiveness to real-time changes-
+    public static int BUFFER_SIZE = 8192;//affects responsiveness to real-time changes-
     //smaller buffer means more responsive but not a complete cycle of the sound
 
-    boolean alive = false;
-    PipedInputStream playback = null;
-    PipedOutputStream outflow = null;
-    FMSynthPatch patch = null;
+    private boolean alive = false;
+    private PipedInputStream playback = null;
+    private PipedOutputStream outflow = null;
+    private FMSynthPatch patch = null;
        
     int index = 0;
     byte[] sampleTable;
     
-    private ArrayList<AbstractSoundGenerator> family = new ArrayList<AbstractSoundGenerator> ();
-	private int selectedGen = 0;
+    private ArrayList<AbstractSoundGenerator> allEngines = new ArrayList<AbstractSoundGenerator> ();
+	private int selectedGen = 3;
 
     
     /** Creates a new instance of FMSynth */
@@ -73,6 +77,9 @@ public class RealTimeFMSynth extends Thread implements Constants
             playback.connect(outflow); //connecting one half is enough
             
             //FIXME
+            /*
+             * not used
+             * 
             input = new DataInputStream(new FileInputStream((new File("C:\\Users\\erich\\Documents\\androidapps\\ephonic\\yaya_deci300.aif"))));
             input.skipBytes(100);
             //build sample table
@@ -86,16 +93,19 @@ public class RealTimeFMSynth extends Thread implements Constants
             }
             
             sampleTable = baos.toByteArray();
+            */
 
             //instantiate all the SoundGenerators by naming convention
-            String[] generators = AbstractSoundGenerator.getAllGenerators();
+            //String[] generators = AbstractSoundGenerator.getAllGenerators();
             
-            for (int i = 0; i < generators.length; i++)
+            //TODO need better way to load these classes, like a properties file or a directory listing
+            for (int i = 1; i < 6; i++)
             {
-            	AbstractSoundGenerator gen = (AbstractSoundGenerator) (Class.forName(generators[i])).newInstance();
+            	AbstractSoundGenerator gen = 
+            			(AbstractSoundGenerator) (Class.forName("com.erichizdepski.generators.Gen" + i).newInstance());
             	gen.setmSynthController(this);
-            	family.add(gen);
-            	System.out.println("instantiated " + generators[i]);
+            	allEngines.add(gen);
+            	System.out.println("instantiated " + "com.erichizdepski.generators.Gen" + i);
             }
             
             
@@ -129,6 +139,19 @@ public class RealTimeFMSynth extends Thread implements Constants
     }
     
 
+    public List<String> getGeneratorDescriptions()
+    {
+    	List<String> descriptions = new ArrayList<String>();
+    	
+    	for (int i = 0; i < allEngines.size(); i++)
+    	{
+    		descriptions.add(allEngines.get(i).getDescription());
+    	}
+    	
+    	return descriptions;
+    }
+    
+    
 	public void setPatch(FMSynthPatch patch)
     {
         debug(patch.toString());
@@ -181,19 +204,23 @@ public class RealTimeFMSynth extends Thread implements Constants
         alive = status;
     }
          
+    public String getGeneratorDescription()
+    {
+    	return allEngines.get(selectedGen).getDescription();
+    }
     
     public void run()
     {
     	short[] samples = null;
-    	SoundGenerator engine = family.get(selectedGen);
+    	SoundGenerator engine = null;
     	
         while(alive)
         {
         	
         	//choose with  SoundGenerator to use
+        	engine = allEngines.get(selectedGen);
         	
-        	
-        	samples = engine.getMonoSamples(8192);
+        	samples = engine.getMonoSamples(BUFFER_SIZE);
         	
             
             try
@@ -251,6 +278,7 @@ public class RealTimeFMSynth extends Thread implements Constants
                 //pretty limited- need better function to spread out the values usefully
                 return Math.PI * value + Math.pow(value, 2); 
             }
+            /*
             case SAMPLE:
             {
                 //should cycle through the table
@@ -262,6 +290,7 @@ public class RealTimeFMSynth extends Thread implements Constants
                 
                 return sampleTable[index] ;
             }
+            */
             default:
             {
                 return Math.sin(value);
@@ -294,6 +323,7 @@ public class RealTimeFMSynth extends Thread implements Constants
     public void setAmplitude(double amplitude)
     {
         this.amplitude = amplitude;
+        LOGGER.info("amplitude= " + amplitude);
     }
     
     /** Getter for property carrierFreq.
@@ -312,8 +342,12 @@ public class RealTimeFMSynth extends Thread implements Constants
      */
     public void setCarrierFreq(double carrierFreq)
     {
-        //debug("carrier freq= " + carrierFreq);
         this.carrierFreq = carrierFreq;
+        LOGGER.info("carrierFreq= " + carrierFreq);
+        
+        //should control mod freq via the freq ratio
+        this.setModFreq(carrierFreq/this.freqRatio);
+        
     }
     
     /** Getter for property modFreq.
@@ -332,8 +366,8 @@ public class RealTimeFMSynth extends Thread implements Constants
      */
     public void setModFreq(double modFreq)
     {
-        //debug("modfreq= " + modFreq);
         this.modFreq = modFreq;
+        LOGGER.info("modFreq= " + modFreq);
     }
     
     /** Getter for property modIndex.
@@ -352,7 +386,7 @@ public class RealTimeFMSynth extends Thread implements Constants
     public void setModIndex(double modIndex)
     {
         this.modIndex = modIndex;
-        debug("mod index= " + modIndex);
+        LOGGER.info("modIndex= " + modIndex);
     }
     
 
@@ -476,4 +510,13 @@ public FMSynthPatch getCurrentPatch()
 	public void setFx(FxWrapper fx) {
 		this.fx = fx;
 	}
+
+
+	//allow UI to select the generator in use
+	public void setGenerator(int selectedIndex) {
+		selectedGen = selectedIndex;
+		LOGGER.info("generator= " + allEngines.get(selectedIndex).getDescription());
+	}
+
+
 }
