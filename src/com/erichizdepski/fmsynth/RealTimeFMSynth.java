@@ -4,14 +4,12 @@
  */
 package com.erichizdepski.fmsynth;
 
-import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -61,11 +59,16 @@ public class RealTimeFMSynth extends Thread implements Constants
     private ArrayList<AbstractSoundGenerator> allEngines = new ArrayList<AbstractSoundGenerator> ();
 	private int selectedGen = 3;
 
+	List<String> cmRatios = new ArrayList<String>(Arrays.asList
+			(new String [] {".25", ".33", ".707", ".714", "1", "1.07", "2", 
+					"2.89", "3", "4", "5", "6" , "7", "8", "9", "10", "11", "12", "13", "14" }));
+
     
     /** Creates a new instance of FMSynth */
     public RealTimeFMSynth(FMSynthPatch patch)
         
     {
+    	
         setPatch(patch);
         DataInputStream input = null;
         
@@ -516,6 +519,13 @@ public FMSynthPatch getCurrentPatch()
 	public void setGenerator(int selectedIndex) {
 		selectedGen = selectedIndex;
 		LOGGER.info("generator= " + allEngines.get(selectedIndex).getDescription());
+	}
+
+
+	//Good C/M ratios from music book
+	public List<String> getCMRatios() {
+		
+		return cmRatios;
 	}
 
 

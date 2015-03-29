@@ -75,16 +75,22 @@ public class MainController {
         
 		//initialize the choice boxes
 		lfoType.getSelectionModel().selectFirst();
-		frequencyRatio.getSelectionModel().selectFirst();
+		
 		
 		//dynamically load the generator choices
 		 List<String> descriptions = synth.getGeneratorDescriptions();
-		 ObservableList<String> observableList = FXCollections.observableList(descriptions);
+		 ObservableList<String> descriptionList = FXCollections.observableList(descriptions);
 		 //populate the UI choice list
-		 generator.setItems(observableList);
+		 generator.setItems(descriptionList);
 		 generator.getSelectionModel().selectFirst();
 		 
-        
+		 //load the carrier to modulation ratios
+		 List<String> ratios = synth.getCMRatios();
+		 ObservableList<String> ratioList = FXCollections.observableList(ratios);
+		 //populate the UI choice list
+		 frequencyRatio.setItems(ratioList);
+		 frequencyRatio.getSelectionModel().selectFirst();
+		 		 
         //use two threads- one for generating audio, one for playing back
         synth.setAlive(true);
         synth.start();
