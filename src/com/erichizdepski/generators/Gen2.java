@@ -21,7 +21,7 @@ public class Gen2 extends AbstractSoundGenerator {
         //no idea what is a good value
         d = 8000;
         cf = mSynthController.getCarrierFreq();
-        mf = 300000; //mSynthController.getModFreq();
+        mf = mSynthController.getModFreq();
         
         cf_rad = AudioUtils.convertHzToRadians(cf);
         mf_rad = AudioUtils.convertHzToRadians(mf);
