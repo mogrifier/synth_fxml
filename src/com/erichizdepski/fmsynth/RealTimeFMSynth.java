@@ -45,7 +45,7 @@ public class RealTimeFMSynth extends Thread implements Constants
     protected int assignLFO = LFO_TO_MODINDEX;
     //to get a proper complete cyclic waveform, you must set the buffer to the sample interval inverse
     
-    public static int BUFFER_SIZE = 8192;//affects responsiveness to real-time changes-
+    public static int BUFFER_SIZE = 44100;//affects responsiveness to real-time changes-
     //smaller buffer means more responsive but not a complete cycle of the sound
 
     private boolean alive = false;
@@ -60,7 +60,7 @@ public class RealTimeFMSynth extends Thread implements Constants
 	private int selectedGen = 3;
 
 	List<String> cmRatios = new ArrayList<String>(Arrays.asList
-			(new String [] {".25", ".33", ".707", ".714", "1", "1.07", "2", 
+			(new String [] {".25", ".33", ".37", ".707", ".714", "1", "1.07", "1.81", "2", 
 					"2.89", "3", "4", "5", "6" , "7", "8", "9", "10", "11", "12", "13", "14" }));
 
     
@@ -224,7 +224,6 @@ public class RealTimeFMSynth extends Thread implements Constants
         	engine = allEngines.get(selectedGen);
         	
         	samples = engine.getMonoSamples(BUFFER_SIZE);
-        	
             
             try
             {
@@ -235,6 +234,8 @@ public class RealTimeFMSynth extends Thread implements Constants
                 //just means other end is dead
                 //e.printStackTrace();
             }
+            
+           
         }
     }
     
@@ -526,6 +527,26 @@ public FMSynthPatch getCurrentPatch()
 	public List<String> getCMRatios() {
 		
 		return cmRatios;
+	}
+
+
+	public void saveSample() {
+		// TODO Auto-generated method stub
+		
+		//choose with  SoundGenerator to use
+    	SoundGenerator engine = allEngines.get(selectedGen);
+    	
+    	short[] samples = engine.getMonoSamples(BUFFER_SIZE * 10);
+    	
+    	
+    	
+
+		//if saving sample, append to file - 10 times
+        AudioUtils.writeMonoAudioFile(samples, "c:\\fmsynth.wav");
+        
+    	
+    	
+		
 	}
 
 

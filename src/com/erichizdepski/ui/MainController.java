@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Slider;
 
@@ -20,6 +21,9 @@ public class MainController {
 	
 	@FXML
 	private ChoiceBox<String> frequencyRatio, lfoType, generator;
+	
+	@FXML
+	private Button saveSample;
 
 	private RealTimeFMSynth synth;
 	private Player player;
@@ -66,6 +70,10 @@ public class MainController {
 			synth.setGenerator(generator.getSelectionModel().getSelectedIndex());
 		});
 		
+		saveSample.setOnAction((event) -> {
+		    // Button was clicked, do something...
+		    synth.saveSample();
+		});
 		
 		
 		LOGGER.info("initializing...");

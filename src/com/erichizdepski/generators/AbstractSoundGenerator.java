@@ -59,6 +59,11 @@ public abstract class AbstractSoundGenerator implements SoundGenerator, Constant
     }
 	
 
+    public short[] getMonoSamples(int length, int count) {
+    	
+    	return null;
+    }
+    
 	@Override
 	public short[] getStereoSamples(int length) {
 		// TODO Auto-generated method stub

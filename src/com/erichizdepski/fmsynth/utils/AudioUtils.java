@@ -19,6 +19,8 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+import com.erichizdepski.fmsynth.Constants;
+
 /**
  *
  * @author Owner
@@ -32,6 +34,15 @@ public class AudioUtils
     public static AudioFormat STEREO_WAV_CD = 
             new AudioFormat(AudioFormat.Encoding.PCM_SIGNED, 
             44100, 16, 2, 2, 44100, true);
+    
+    
+    
+    public static double convertHzToRadians(double hz)
+    {
+    	//1 Hz = 2pi rad/s = 6.2831853 rad/s
+    	return Constants.twopi * hz;
+    }
+    
     
     //FIXME must read wav file data and reverse each byte pair. Change to process a byte buffer.
     public static short readLittleEndianShort(DataInputStream input) throws IOException

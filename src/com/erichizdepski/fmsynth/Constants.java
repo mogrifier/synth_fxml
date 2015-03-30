@@ -59,7 +59,7 @@ public interface Constants
     public static int SHAPER2 = 3;
     public static int RFILTER = 4;
     
-    public static final double twopi = 6.283;
+    public static final double twopi = 6.2831853;
     
     public static int LFO_TO_PITCH = 2;
     public static int LFO_TO_AMPLITUDE = 1;
