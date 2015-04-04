@@ -33,6 +33,7 @@ public class RealTimeFMSynth extends Thread implements Constants
     private double amplitude;
     private double modIndexMax = 1;
     private double freqRatio;
+	private double buzz;
     private FxWrapper fx = new FxWrapper(0, 0);
         
     private int pitchBend = 0;
@@ -60,8 +61,10 @@ public class RealTimeFMSynth extends Thread implements Constants
 	private int selectedGen = 3;
 
 	List<String> cmRatios = new ArrayList<String>(Arrays.asList
-			(new String [] {".25", ".33", ".37", ".707", ".714", "1", "1.07", "1.81", "2", 
-					"2.89", "3", "4", "5", "6" , "7", "8", "9", "10", "11", "12", "13", "14" }));
+			(new String [] {".01", ".05", ".1", ".13", ".15", ".2", ".25", ".33", ".37", ".5", ".707", ".714", "1", "1.07", "1.81", "2", 
+					"2.89", "3", "4", "5", "6" , "7", "8", "9", "10", "11", "12", "13", "14", "100" }));
+
+
 
     
     /** Creates a new instance of FMSynth */
@@ -536,17 +539,35 @@ public FMSynthPatch getCurrentPatch()
 		//choose with  SoundGenerator to use
     	SoundGenerator engine = allEngines.get(selectedGen);
     	
-    	short[] samples = engine.getMonoSamples(BUFFER_SIZE * 10);
+    	//set the key to G for dropzone
+    	this.setCarrierFreq(392);
+    	
+    	
+    	short[] samples = engine.getMonoSamples(SAMPLE_SIZE);
     	
     	
     	
 
 		//if saving sample, append to file - 10 times
+    	
+    	
         AudioUtils.writeMonoAudioFile(samples, "c:\\fmsynth.wav");
         
     	
     	
 		
+	}
+
+
+	public void setBuzz(double buzz) {
+		this.buzz = buzz;
+		LOGGER.info("buzz = " + buzz);
+		
+	}
+
+
+	public double getBuzz() {
+		return buzz;
 	}
 
 

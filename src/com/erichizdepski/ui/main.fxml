@@ -38,7 +38,7 @@
                 </Menu>
               </menus> 
             </MenuBar>
-            <ChoiceBox fx:id="frequencyRatio" layoutX="42.0" layoutY="76.0" prefWidth="150.0">
+            <ChoiceBox fx:id="frequencyRatio" layoutX="11.0" layoutY="76.0" prefWidth="150.0">
                            <effect>
                               <Glow />
                            </effect>
@@ -61,77 +61,87 @@
                            </tooltip>
                            
                            </ChoiceBox>
-            <Text fill="#030303" layoutX="42.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" text="Frequency Ratio" wrappingWidth="202.13671875">
+            <Text fill="#030303" layoutX="11.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" text="Frequency Ratio" wrappingWidth="202.13671875">
                            <effect>
                               <DropShadow color="#e10c0c" height="53.62" radius="50.03" spread="0.73" width="148.5" />
                            </effect>
                            <font>
                               <Font size="18.0" />
                            </font></Text>
-            <Text fill="#0a0080" layoutX="42.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modulation Index" wrappingWidth="186.13671875">
+            <Text fill="#0a0080" layoutX="11.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modulation Index" wrappingWidth="186.13671875">
                            <font>
                               <Font name="Lucida Console" size="18.0" />
                            </font>
                            <effect>
                               <DropShadow blurType="GAUSSIAN" color="#9517a3" height="38.67" radius="9.1675" spread="0.65" width="0.0" />
                            </effect></Text>
-            <Slider fx:id="modIndex" blockIncrement="0.01" layoutX="42.0" layoutY="160.0" majorTickUnit="0.1" max="1.0" minorTickCount="0" prefHeight="14.0" prefWidth="514.0" showTickMarks="true" value="0.5">
+            <Slider fx:id="modIndex" blockIncrement="0.01" layoutX="11.0" layoutY="160.0" majorTickUnit="0.1" max="1.0" minorTickCount="0" prefHeight="27.0" prefWidth="412.0" showTickMarks="true" value="0.5">
                            <tooltip>
                               <Tooltip text="Change how the FM tone color" />
                            </tooltip></Slider>
-            <Slider fx:id="carrierFreq" layoutX="42.0" layoutY="479.0" majorTickUnit="500.0" max="5000.0" minorTickCount="50" prefHeight="27.0" prefWidth="717.0" showTickMarks="true">
+            <Slider fx:id="carrierFreq" layoutX="14.0" layoutY="483.0" majorTickUnit="500.0" max="5000.0" minorTickCount="50" prefHeight="27.0" prefWidth="717.0" showTickMarks="true">
                            <tooltip>
                               <Tooltip text="Change the synth frequency" />
                            </tooltip>
                            <cursor>
                               <Cursor fx:constant="OPEN_HAND" />
                            </cursor></Slider>
-            <Text fill="GREEN" layoutX="42.0" layoutY="472.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Carrier Frequency (Note)" wrappingWidth="228.13671875">
+            <Text fill="GREEN" layoutX="10.0" layoutY="472.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Carrier Frequency (Note)" wrappingWidth="228.13671875">
                            <effect>
                               <DropShadow blurType="GAUSSIAN" color="#6ef592" spread="0.98" />
                            </effect>
                            <font>
                               <Font size="18.0" />
                            </font></Text>
-                        <Text fill="GREEN" layoutX="604.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Low Frequency Oscillator" wrappingWidth="154.13671875">
+                        <Group layoutX="472.0" layoutY="62.0">
+                           <children>
+                              <Text fill="GREEN" layoutX="1.0" layoutY="-15.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Low Frequency Oscillator" wrappingWidth="154.13671875">
+                                 <font>
+                                    <Font name="Lucida Console" size="18.0" />
+                                 </font>
+                              </Text>
+                              <Slider fx:id="lfoRate" layoutX="24.0" layoutY="41.0" minorTickCount="1" orientation="VERTICAL" prefHeight="140.0" prefWidth="24.0" showTickMarks="true" snapToTicks="true" />
+                              <Slider fx:id="lfoDepth" layoutX="85.0" layoutY="41.0" minorTickCount="1" orientation="VERTICAL" prefHeight="140.0" prefWidth="24.0" showTickMarks="true" snapToTicks="true" />
+                              <Text fill="GREEN" layoutX="15.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rate">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="GREEN" layoutX="69.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Depth" wrappingWidth="55.13671875">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Text>
+                              <ChoiceBox fx:id="lfoType" layoutY="13.0" prefWidth="150.0">
+                               <items>
+      					            <FXCollections fx:factory="observableArrayList">
+      					              <String fx:value="SINE" />
+      					              <String fx:value="SAW" />
+      					              <String fx:value="NOISE" />
+      					              <String fx:value="TRIANGLE" />
+      					              <String fx:value="??" />
+      					            </FXCollections>
+      				          </items>
+      				          </ChoiceBox>
+                           </children>
+                        </Group>
+                        <ChoiceBox fx:id="generator" layoutX="262.0" layoutY="76.0" prefWidth="150.0" />
+                        <Text fill="#1818ab" layoutX="263.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Generator" wrappingWidth="184.13671875">
                            <font>
                               <Font name="Lucida Console" size="18.0" />
                            </font>
                         </Text>
-                        <Slider fx:id="lfoRate" layoutX="609.0" layoutY="108.0" minorTickCount="1" orientation="VERTICAL" prefHeight="230.0" prefWidth="24.0" showTickMarks="true" snapToTicks="true" />
-                        <Slider fx:id="lfoDepth" layoutX="693.0" layoutY="108.0" minorTickCount="1" orientation="VERTICAL" prefHeight="230.0" prefWidth="24.0" showTickMarks="true" snapToTicks="true" />
-                        <Text fill="GREEN" layoutX="595.0" layoutY="359.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rate">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Text>
-                        <Text fill="GREEN" layoutX="679.0" layoutY="360.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Depth" wrappingWidth="55.13671875">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Text>
-                        <ChoiceBox fx:id="lfoType" layoutX="594.0" layoutY="76.0" prefWidth="150.0">
-                         <items>
-					            <FXCollections fx:factory="observableArrayList">
-					              <String fx:value="SINE" />
-					              <String fx:value="SAW" />
-					              <String fx:value="NOISE" />
-					              <String fx:value="TRIANGLE" />
-					              <String fx:value="??" />
-					            </FXCollections>
-				          </items>
-				          </ChoiceBox>
-                        <ChoiceBox fx:id="generator" layoutX="293.0" layoutY="76.0" prefWidth="150.0" />
-                        <Text fill="#1818ab" layoutX="294.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Generator" wrappingWidth="184.13671875">
-                           <font>
-                              <Font name="Lucida Console" size="18.0" />
-                           </font>
-                        </Text>
-                        <Button fx:id="saveSample" layoutX="52.0" layoutY="244.0" mnemonicParsing="false" text="Save Sample">
+                        <Button fx:id="saveSample" layoutX="21.0" layoutY="244.0" mnemonicParsing="false" text="Save Sample">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Button>
+                        <Slider fx:id="buzz" blockIncrement="0.05" layoutX="707.0" layoutY="104.0" majorTickUnit="0.05" max="1.0" min="0.2" minorTickCount="0" orientation="VERTICAL" showTickMarks="true" value="0.2" />
+                        <Text fill="GREEN" layoutX="696.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Buzz" wrappingWidth="55.13671875">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
          </children>
               
               

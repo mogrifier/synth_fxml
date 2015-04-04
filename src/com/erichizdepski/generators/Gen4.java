@@ -31,7 +31,7 @@ public class Gen4 extends AbstractSoundGenerator {
         modIncr = twopi * mSynthController.getModFreq() * mSynthController.getSampleInterval();
         modOffset = 2 * Math.acos(mSynthController.getModIndex());
         ampOffset = 2 * Math.acos(.9);  //vary from 0 to 1
-		
+        buzz = mSynthController.getBuzz();
 		
 		for (int i = 0; i < length; i++)
         {
@@ -44,7 +44,7 @@ public class Gen4 extends AbstractSoundGenerator {
 			
 			//original formula was causing noise- just to high an input ALL THE TIME to sin function
 			//this formula makes a more spectrally rich sound
-            samples[i] = AudioUtils.scaleToShort(1,  (Math.sin(theta + ampOffset) + Math.sin(theta - ampOffset)) *.4);
+            samples[i] = AudioUtils.scaleToShort(1,  (Math.sin(theta + ampOffset) + Math.sin(theta - ampOffset)) *buzz);
     }
 		  
 		  return samples;

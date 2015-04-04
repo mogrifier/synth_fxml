@@ -64,4 +64,7 @@ public interface Constants
     public static int LFO_TO_PITCH = 2;
     public static int LFO_TO_AMPLITUDE = 1;
     public static int LFO_TO_MODINDEX = 0;
+    
+    //2 seconds of audio
+    public static int SAMPLE_SIZE = 88200;
 }

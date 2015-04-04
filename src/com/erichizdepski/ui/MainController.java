@@ -16,8 +16,9 @@ import com.erichizdepski.fmsynth.RealTimeFMSynth;
 
 public class MainController {
 	
+	//UI controls
 	@FXML
-	private Slider modIndex, carrierFreq, lfoDepth, lfoRate;
+	private Slider modIndex, carrierFreq, lfoDepth, lfoRate, buzz;
 	
 	@FXML
 	private ChoiceBox<String> frequencyRatio, lfoType, generator;
@@ -40,6 +41,9 @@ public class MainController {
 		    synth.setModIndex(newValue.doubleValue());
 		});
 	
+		buzz.valueProperty().addListener((observable, oldValue, newValue) -> {
+		    synth.setBuzz(newValue.doubleValue());
+		});
 		
 		carrierFreq.valueProperty().addListener((observable, oldValue, newValue) -> {
 			synth.setCarrierFreq(newValue.doubleValue());
