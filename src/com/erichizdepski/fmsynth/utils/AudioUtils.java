@@ -23,7 +23,7 @@ import com.erichizdepski.fmsynth.Constants;
 
 /**
  *
- * @author Owner
+ * @author Erich
  */
 public class AudioUtils
 {
@@ -82,6 +82,38 @@ public class AudioUtils
         return output;
     }
     
+    /**
+     * This casts and rescales short data to a double in range -1 to 1.
+     * @param data
+     * @return
+     */
+    
+    public static double[] shortToDouble(short[] data)
+    {
+        
+        double[] output = new double[data.length];
+        
+        int index = 0;
+        for (int i = 0; i < data.length; i++)
+        {
+        	//simple brute force casting
+            output[index++] = scaleToDouble(data[i]);
+        }
+        
+        return output;
+    }
+    
+    
+    /*
+     * specific to functions that range from -1 to 1 (trig)
+     */
+    public static double scaleToDouble(short raw)
+    {
+    	//put short in range 0 - 65535; output a double from -1 to 1
+    	//recall Short.MIN_VALUE is negative
+    	double output = (((raw - Short.MIN_VALUE)/65535.0) * 2.0) -1.0;
+    	return output;
+    }
     
     /*
      * specific to functions that range from -1 to 1 (trig)
@@ -180,6 +212,34 @@ public class AudioUtils
      * 
      */
     public static byte[] readWav(File wavFile, String raw) throws IOException
+    {
+        //open wav file and read first 36 bytes
+   	 DataInputStream input = new DataInputStream(new FileInputStream(wavFile)); 
+   	          
+        input.skip(36);
+        //should be the word 'data'
+        byte[] format = new byte[4];
+        input.read(format);
+        //System.out.println(new String(format));
+        
+        int dataSize = AudioUtils.readLittleEndianInt(input);
+        //read size of size in subchunk2
+        //System.out.println("size of data subchunk " + dataSize);
+        
+        byte[] buffer = new byte[dataSize];
+        input.read(buffer, 0, dataSize);
+        
+        return buffer;
+        
+    }
+    
+    
+    
+    /*
+     * Opens raw resources bundled with the app. These need to be wav files.
+     * 
+     */
+    public static byte[] readWav(File wavFile) throws IOException
     {
         //open wav file and read first 36 bytes
    	 DataInputStream input = new DataInputStream(new FileInputStream(wavFile)); 

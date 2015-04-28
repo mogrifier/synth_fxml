@@ -3,5 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/erich/Documents/libraries/JLargeArrays-1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/erich/Documents/libraries/JTransforms-3.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

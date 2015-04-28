@@ -21,9 +21,15 @@
                        <children>
             <MenuBar layoutY="2.0">
               <menus>
+                              <Menu mnemonicParsing="false" text="App">
+                                <items>
+                                  <MenuItem mnemonicParsing="false" text="Exit" />
+                    <MenuItem mnemonicParsing="false" text="About" />
+                                </items>
+                              </Menu>
                 <Menu mnemonicParsing="false" text="File">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Close" />
+                                    <MenuItem mnemonicParsing="false" text="Save Patch" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Edit">
@@ -31,11 +37,7 @@
                     <MenuItem mnemonicParsing="false" text="Delete" />
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
-                  </items>
-                </Menu>
+                <Menu mnemonicParsing="false" text="Help" />
               </menus> 
             </MenuBar>
             <ChoiceBox fx:id="frequencyRatio" layoutX="11.0" layoutY="76.0" prefWidth="150.0">
@@ -68,14 +70,14 @@
                            <font>
                               <Font size="18.0" />
                            </font></Text>
-            <Text fill="#0a0080" layoutX="11.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modulation Index" wrappingWidth="186.13671875">
+            <Text fill="#0a0080" layoutX="11.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modulation Index" wrappingWidth="186.13671875">
                            <font>
                               <Font name="Lucida Console" size="18.0" />
                            </font>
                            <effect>
                               <DropShadow blurType="GAUSSIAN" color="#9517a3" height="38.67" radius="9.1675" spread="0.65" width="0.0" />
                            </effect></Text>
-            <Slider fx:id="modIndex" blockIncrement="0.01" layoutX="11.0" layoutY="160.0" majorTickUnit="0.1" max="1.0" minorTickCount="0" prefHeight="27.0" prefWidth="412.0" showTickMarks="true" value="0.5">
+            <Slider fx:id="modIndex" blockIncrement="0.01" layoutX="11.0" layoutY="299.0" majorTickUnit="0.1" max="1.0" minorTickCount="0" prefHeight="27.0" prefWidth="412.0" showTickMarks="true" value="0.5">
                            <tooltip>
                               <Tooltip text="Change how the FM tone color" />
                            </tooltip></Slider>
@@ -100,8 +102,8 @@
                                     <Font name="Lucida Console" size="18.0" />
                                  </font>
                               </Text>
-                              <Slider fx:id="lfoRate" layoutX="24.0" layoutY="41.0" minorTickCount="1" orientation="VERTICAL" prefHeight="140.0" prefWidth="24.0" showTickMarks="true" snapToTicks="true" />
-                              <Slider fx:id="lfoDepth" layoutX="85.0" layoutY="41.0" minorTickCount="1" orientation="VERTICAL" prefHeight="140.0" prefWidth="24.0" showTickMarks="true" snapToTicks="true" />
+                              <Slider fx:id="lfoRate" blockIncrement="1.0" layoutX="24.0" layoutY="41.0" majorTickUnit="1.0" max="15.0" minorTickCount="0" orientation="VERTICAL" prefHeight="140.0" prefWidth="24.0" showTickMarks="true" />
+                              <Slider fx:id="lfoDepth" blockIncrement="1.0" layoutX="85.0" layoutY="41.0" majorTickUnit="1.0" max="100.0" minorTickCount="0" orientation="VERTICAL" prefHeight="140.0" prefWidth="24.0" showTickMarks="true" />
                               <Text fill="GREEN" layoutX="15.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rate">
                                  <font>
                                     <Font size="18.0" />
@@ -131,17 +133,17 @@
                               <Font name="Lucida Console" size="18.0" />
                            </font>
                         </Text>
-                        <Button fx:id="saveSample" layoutX="21.0" layoutY="244.0" mnemonicParsing="false" text="Save Sample">
+                        <Button fx:id="saveSample" layoutX="14.0" layoutY="346.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="99.0" text="Sample">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Button>
-                        <Slider fx:id="buzz" blockIncrement="0.05" layoutX="707.0" layoutY="104.0" majorTickUnit="0.05" max="1.0" min="0.2" minorTickCount="0" orientation="VERTICAL" showTickMarks="true" value="0.2" />
-                        <Text fill="GREEN" layoutX="696.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Buzz" wrappingWidth="55.13671875">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Text>
+                        <ToggleButton fx:id="buzz" layoutX="669.0" layoutY="75.0" mnemonicParsing="false" text="Buzz" />
+                        <Slider fx:id="continuousCM" layoutX="16.0" layoutY="148.0" min="0.1" prefHeight="14.0" prefWidth="403.0" />
+                        <Slider fx:id="modFreq" layoutX="15.0" layoutY="215.0" max="5000.0" min="10.0" prefHeight="14.0" prefWidth="395.0" />
+                        <ChoiceBox fx:id="lfoAssignment" layoutX="475.0" layoutY="300.0" prefWidth="150.0" />
+                        <Text layoutX="16.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modulation Frequency" wrappingWidth="140.13671875" />
+                        <Text layoutX="16.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Carrier:Modulation Ratio" wrappingWidth="168.13671875" />
          </children>
               
               

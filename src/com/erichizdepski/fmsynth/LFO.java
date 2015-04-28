@@ -201,7 +201,7 @@ public class LFO implements Constants
         
         tablePos +=rate; // (rate + ((int)Math.floor(Math.random() * 10) -5));
 
-        return val * depth/100;
+        return val * depth/10.0d;
     }
     
     

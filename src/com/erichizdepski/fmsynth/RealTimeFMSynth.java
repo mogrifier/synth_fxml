@@ -38,7 +38,7 @@ public class RealTimeFMSynth extends Thread implements Constants
         
     private int pitchBend = 0;
     private double modWheel = 0;
-    private LFO modlfo = new LFO(LFO.SINE, 16, 10); //default
+    private LFO modlfo = new LFO(LFO.SINE, 5, 10); //default
 
     private double sampleInterval = (double)1/44100;
 
@@ -64,7 +64,7 @@ public class RealTimeFMSynth extends Thread implements Constants
 			(new String [] {".01", ".05", ".1", ".13", ".15", ".2", ".25", ".33", ".37", ".5", ".707", ".714", "1", "1.07", "1.81", "2", 
 					"2.89", "3", "4", "5", "6" , "7", "8", "9", "10", "11", "12", "13", "14", "100" }));
 
-
+	List<String> lfoOptions = new ArrayList<String>(Arrays.asList(new String[] {"Mod Index", "Amplitude", "Pitch"}));
 
     
     /** Creates a new instance of FMSynth */
@@ -172,6 +172,7 @@ public class RealTimeFMSynth extends Thread implements Constants
         this.modWheel = 0;
         this.modlfo = patch.getModlfo();
         this.fx = patch.getFx();
+        this.buzz = patch.getBuzz();
     }
     
     
@@ -353,7 +354,7 @@ public class RealTimeFMSynth extends Thread implements Constants
         LOGGER.info("carrierFreq= " + carrierFreq);
         
         //should control mod freq via the freq ratio
-        this.setModFreq(carrierFreq/this.freqRatio);
+        //this.setModFreq(carrierFreq/this.freqRatio);
         
     }
     
@@ -464,6 +465,8 @@ public FMSynthPatch getCurrentPatch()
     public void setFreqRatio(double freqRatio)
     {
         this.freqRatio = freqRatio;
+        //should control mod freq via the freq ratio
+        this.setModFreq(carrierFreq/this.freqRatio);
     }
 
     public void setModlfo(LFO modlfo)
@@ -540,7 +543,7 @@ public FMSynthPatch getCurrentPatch()
     	SoundGenerator engine = allEngines.get(selectedGen);
     	
     	//set the key to G for dropzone
-    	this.setCarrierFreq(392);
+    	//this.setCarrierFreq(392);
     	
     	
     	short[] samples = engine.getMonoSamples(SAMPLE_SIZE);
@@ -569,6 +572,39 @@ public FMSynthPatch getCurrentPatch()
 	public double getBuzz() {
 		return buzz;
 	}
+
+
+	public void setLfoType(int selectedIndex) {
+		modlfo.setType(selectedIndex);
+	}
+
+
+	public void setLfoRate(int intValue) {
+		// TODO Auto-generated method stub
+		modlfo.setRate(intValue);
+		
+	}
+
+
+	public void setLfoDepth(int intValue) {
+		// TODO Auto-generated method stub
+		modlfo.setDepth(intValue);
+	}
+
+
+	/*
+	 * Returns list of Options that the LFO can be assigned to.
+	 */
+	public List<String> getLfoOptions() {
+		return lfoOptions;
+	}
+
+
+	public void setLfoAssignment(int selectedIndex) {
+		this.assignLFO = selectedIndex;
+		
+	}
+	
 
 
 }

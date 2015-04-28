@@ -15,16 +15,17 @@ import java.io.*;
  */
 public class FMSynthPatch implements Serializable
 {
-    private double carrierFreq = 440; //up to 10000?
-    private double modFreq = 220; //ratio to freq
+    private double carrierFreq = 392; //up to 10000?
+    private double modFreq = 2500; //ratio to freq
     private double modIndex = .73;  //0 to 1
     private double modIndexMax = 1; //range 0 to 1; 1ow is best for music
     private double amplitude = 1; // 0 to 1
     private double freqRatio = 0.5; // 5 to .05
+    private double buzz = 0.7;
     private String name = null;
     private LFO modlfo = new LFO(LFO.SAW, 0, 0);  
     private FxWrapper fx = new FxWrapper(FX.CHEB2,  0);
-    public static FMSynthPatch PATCH = new FMSynthPatch(1, .66);
+    public static FMSynthPatch PATCH = new FMSynthPatch(.5, .66);
     
     public FMSynthPatch()
     {
@@ -141,6 +142,34 @@ public class FMSynthPatch implements Serializable
     {
         this.fx = fx;
     }
+
+	/**
+	 * @return the buzz
+	 */
+	public double getBuzz() {
+		return buzz;
+	}
+
+	/**
+	 * @param buzz the buzz to set
+	 */
+	public void setBuzz(double buzz) {
+		this.buzz = buzz;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
 
  
 

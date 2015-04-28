@@ -20,7 +20,7 @@ public abstract class AbstractSoundGenerator implements SoundGenerator, Constant
 	protected double totalFreq = 0;
 	protected short[] samples = null; //8192 samples = .1 sec of audio      
 	protected double lfoValue = 0;
-	protected double amp = 0;
+	protected double amp = 0.5;
 	protected double buzz = .2;
 	protected RealTimeFMSynth mSynthController;
 
